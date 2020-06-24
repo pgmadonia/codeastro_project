@@ -1,0 +1,12 @@
+README.md
+setup.py
+Edgedec.egg-info/PKG-INFO
+Edgedec.egg-info/SOURCES.txt
+Edgedec.egg-info/dependency_links.txt
+Edgedec.egg-info/top_level.txt
+edgedec/__init__.py
+edgedec/picture.py
+edgedec.egg-info/PKG-INFO
+edgedec.egg-info/SOURCES.txt
+edgedec.egg-info/dependency_links.txt
+edgedec.egg-info/top_level.txt

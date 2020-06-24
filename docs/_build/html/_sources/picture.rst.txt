@@ -1,4 +1,4 @@
-.. _picture:
+.. module:: edgedec
 
 Picture
 =======

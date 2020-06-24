@@ -9,7 +9,8 @@ Welcome to edgedec's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
+   
+   picture
 
 
 Indices and tables
