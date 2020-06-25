@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 
 class Picture:
     '''
+    This class conta
     '''
 
     def __init__(self, file_name):
@@ -39,10 +40,14 @@ class Picture:
         This function checks if two adjacent pixels have the exact same RGB value
         
         Args:
-            pixel_a - tuple: (r,g,b) values for pixel A  
-            pixel_b - tuple: (r,g,b) values for pixel B
+            pixel_a - list: [r,g,b] values for pixel A  
+            pixel_b - list: [r,g,b] values for pixel B
         '''
-        return pixel_a.all() == pixel_b.all()
+        # print(type(pixel_a))
+        # print(type(pixel_b))
+
+        return np.array_equal(pixel_a, pixel_b)
+        # return pixel_a == pixel_b #pixel_a[0] == pixel_b[0] and pixel_a[1] == pixel_b[1] and pixel_a[2] == pixel_b[2]   
 
     def horizontal_scan(self, row_index):
         '''
@@ -80,24 +85,35 @@ class Picture:
         for i in range(self.height):
             self.horizontal_scan(i)
 
+
+    def check_num_edges(self):
+        '''
+        '''
+        tot_edges = 0
+        for row in self.edges:
+            tot_edges += sum(row)
+        return tot_edges
+
     def highlight_edges(self):
-        # poison green: R-24 G-95 B-1
         for i in range(self.height): # 0 - 639
             for j in range(self.width): # 0 - 479
                 if self.edges[i][j] == 1:
-                    print(self.contours[i][j])
+                    # print(self.contours[i][j])
                     self.contours[i][j] = [1, 1, 1]
+                    
+
                 else:
-                    print(self.contours[i][j])
+                    # print(self.contours[i][j])
                     self.contours[i][j] = [0, 0, 0]  
 
      
-image_to_process = Picture('pic3.png')
+image_to_process = Picture('pic1.png')
 
 # print(len(image_to_process))
 print(image_to_process)
 
 image_to_process.find_edges()
+print(image_to_process.check_num_edges())
 image_to_process.highlight_edges()
 
 # fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(10, 5))
