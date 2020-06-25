@@ -3,6 +3,6 @@
 Picture
 =======
 
-.. automodule:: picture
+.. automodule: picture
    :members:
 
