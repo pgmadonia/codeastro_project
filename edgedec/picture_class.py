@@ -1,3 +1,4 @@
+"""Class to dectect edges in a picture"""
 import numpy as np
 import sys
 np.set_printoptions(threshold=sys.maxsize)
@@ -9,36 +10,34 @@ import matplotlib.pyplot as plt
 # img_contour = img.draw_contours()
 
 class Picture:
-    """
-    Picture class.
+    """ Picture class.
 
     This class offers a series of methods to load in a picture using matplotlib.image and then find the edges between pixels with different colors in it.
     
     Note:
         Do not include the `self` parameter in the ``Args`` section.
 
-        Args:
-            file_name (str): The name of the image file to be loaded as a Picture object.
-            threshold (float): Threshold value to determine whether or not an edge is present. 
-                This is passed as an attribute and then called in by the highlight_edges_grad method. Default value is 0.1 .
+    Args:
+        file_name (str): The name of the image file to be loaded as a Picture object.
+        threshold (float): Threshold value to determine whether or not an edge is present. 
+            This is passed as an attribute and then called in by the highlight_edges_grad method. Default value is 0.1 .
 
-        Attributes:
-            file_name (str): file name of the loaded image
-            image     (np.array): [R G B] values of each pixel in the image
-            contours  (np.array): copy of the [R G B] values of each pixel in the image, will be used to draw the detected edge over the original image
-            height    (int): height of the image in px 
-            width     (int): width of the image in px
-            edges     (np.array): array of zeros with same dimensions as the image. 
-                Whenever an edge is found, value of the corresponding pixel is switched to 1 (if the highlight_edges method is called), 
-                or the "color difference" value is stored in the corresponding pixel (if the highlight_edges_grad method is called).
-            alpha     (bool): True if the loaded image has an alpha channel, False otherwise
+    Attributes:
+        file_name (str): file name of the loaded image
+        image     (np.array): [R G B] values of each pixel in the image
+        contours  (np.array): copy of the [R G B] values of each pixel in the image, will be used to draw the detected edge over the original image
+        height    (int): height of the image in px 
+        width     (int): width of the image in px
+        edges     (np.array): array of zeros with same dimensions as the image. 
+            Whenever an edge is found, value of the corresponding pixel is switched to 1 (if the highlight_edges method is called), 
+            or the "color difference" value is stored in the corresponding pixel (if the highlight_edges_grad method is called).
+        alpha     (bool): True if the loaded image has an alpha channel, False otherwise
 
     
     Written: Gullo, Mikulas, Paolo 2020
     """
     def __init__(self, file_name, threshold = 0.1):
-        """
-        class __init__ method 
+        """ class __init__ method 
         """
         self.file_name = file_name 
         self.image = img.imread(file_name) # numpy array of r-g-b values

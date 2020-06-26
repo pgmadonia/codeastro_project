@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Picture &mdash; edgedec 0.1 documentation</title>
+  <title>Picture &mdash; edgedec 0.3.1 documentation</title>
   
 
   
@@ -149,8 +149,239 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="picture">
-<span id="picture-class"></span><h1>Picture<a class="headerlink" href="#picture" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-picture_class">
+<span id="picture"></span><span id="picture-class"></span><h1>Picture<a class="headerlink" href="#module-picture_class" title="Permalink to this headline">¶</a></h1>
+<p>Class to dectect edges in a picture</p>
+<dl class="py class">
+<dt id="picture_class.Picture">
+<em class="property">class </em><code class="sig-prename descclassname">picture_class.</code><code class="sig-name descname">Picture</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_name</span></em>, <em class="sig-param"><span class="n">threshold</span><span class="o">=</span><span class="default_value">0.1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#picture_class.Picture" title="Permalink to this definition">¶</a></dt>
+<dd><p>Picture class.</p>
+<p>This class offers a series of methods to load in a picture using matplotlib.image and then find the edges between pixels with different colors in it.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Do not include the <cite>self</cite> parameter in the <code class="docutils literal notranslate"><span class="pre">Args</span></code> section.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_name</strong> (<em>str</em>) – The name of the image file to be loaded as a Picture object.</p></li>
+<li><p><strong>threshold</strong> (<em>float</em>) – Threshold value to determine whether or not an edge is present.
+This is passed as an attribute and then called in by the highlight_edges_grad method. Default value is 0.1 .</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="picture_class.Picture.file_name">
+<code class="sig-name descname">file_name</code><a class="headerlink" href="#picture_class.Picture.file_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>file name of the loaded image</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="picture_class.Picture.image">
+<code class="sig-name descname">image</code><a class="headerlink" href="#picture_class.Picture.image" title="Permalink to this definition">¶</a></dt>
+<dd><p>[R G B] values of each pixel in the image</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="picture_class.Picture.contours">
+<code class="sig-name descname">contours</code><a class="headerlink" href="#picture_class.Picture.contours" title="Permalink to this definition">¶</a></dt>
+<dd><p>copy of the [R G B] values of each pixel in the image, will be used to draw the detected edge over the original image</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="picture_class.Picture.height">
+<code class="sig-name descname">height</code><a class="headerlink" href="#picture_class.Picture.height" title="Permalink to this definition">¶</a></dt>
+<dd><p>height of the image in px</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="picture_class.Picture.width">
+<code class="sig-name descname">width</code><a class="headerlink" href="#picture_class.Picture.width" title="Permalink to this definition">¶</a></dt>
+<dd><p>width of the image in px</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="picture_class.Picture.edges">
+<code class="sig-name descname">edges</code><a class="headerlink" href="#picture_class.Picture.edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>array of zeros with same dimensions as the image.
+Whenever an edge is found, value of the corresponding pixel is switched to 1 (if the highlight_edges method is called),
+or the “color difference” value is stored in the corresponding pixel (if the highlight_edges_grad method is called).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="picture_class.Picture.alpha">
+<code class="sig-name descname">alpha</code><a class="headerlink" href="#picture_class.Picture.alpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if the loaded image has an alpha channel, False otherwise</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Written: Gullo, Mikulas, Paolo 2020</p>
+<dl class="py method">
+<dt id="picture_class.Picture.assess_difference">
+<code class="sig-name descname">assess_difference</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pixel_a</span></em>, <em class="sig-param"><span class="n">pixel_b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#picture_class.Picture.assess_difference" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function checks if two adjacent pixels have the exact same RGB value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pixel_a</strong> (<em>float</em><em>, </em><em>list</em>) – [r,g,b] values for pixel A</p></li>
+<li><p><strong>pixel_b</strong> (<em>float</em><em>, </em><em>list</em>) – [r,g,b] values for pixel B</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the two pixel have the same RGB values</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="picture_class.Picture.assess_gradient">
+<code class="sig-name descname">assess_gradient</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pixel_a</span></em>, <em class="sig-param"><span class="n">pixel_b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#picture_class.Picture.assess_gradient" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function measures the “color difference” between two adjacent pixels</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pixel_a</strong> (<em>float</em><em>, </em><em>list</em>) – [r,g,b] values for pixel A</p></li>
+<li><p><strong>pixel_b</strong> (<em>float</em><em>, </em><em>list</em>) – [r,g,b] values for pixel B</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>“color difference” between two pixels, defined as the sum of the absolute difference over the R, G and B parameters</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="picture_class.Picture.find_edges">
+<code class="sig-name descname">find_edges</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#picture_class.Picture.find_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method calls the vertical_scan and horizontal_scan methods to find edges within the image.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="picture_class.Picture.find_edges_grad">
+<code class="sig-name descname">find_edges_grad</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#picture_class.Picture.find_edges_grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method calls the vertical_scan_grad and horizontal_scan_grad methods to find edges within the image.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="picture_class.Picture.highlight_edges">
+<code class="sig-name descname">highlight_edges</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#picture_class.Picture.highlight_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method cycles over the image rows and columns in self.edges. Whenever it finds a nonzero value,
+it changes the corresponding pixel value in self.contours to [1,1,1] or [1,1,1,1] (depending on wether or not self.alpha is true).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="picture_class.Picture.highlight_edges_grad">
+<code class="sig-name descname">highlight_edges_grad</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">threshold</span></em><span class="sig-paren">)</span><a class="headerlink" href="#picture_class.Picture.highlight_edges_grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method cycles over the image rows and columns in self.edges. Whenever it finds a value above the threshold,
+it changes the corresponding pixel value in self.contours to [1,1,1] or [1,1,1,1] (depending on wether or not self.alpha is true).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="picture_class.Picture.horizontal_scan">
+<code class="sig-name descname">horizontal_scan</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row_index</span></em><span class="sig-paren">)</span><a class="headerlink" href="#picture_class.Picture.horizontal_scan" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>This function performs a linear scan over a given row. It calls the assess_difference method on each couple of pixel in the row,</dt><dd><p>and every time this returns False it changes the corresponding pixel value to 1 in self.edges.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>row_index</strong> (<em>int</em>) – index of row to scan in self.image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="picture_class.Picture.horizontal_scan_grad">
+<code class="sig-name descname">horizontal_scan_grad</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row_index</span></em><span class="sig-paren">)</span><a class="headerlink" href="#picture_class.Picture.horizontal_scan_grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function performs a linear scan over a given row. It calls the assess_gradient method on each couple of pixel in the row. For each pixel, it stores in self.edges the maximum value between the current value in self.edges and the “color difference” returned by assess_gradient.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>row_index</strong> (<em>int</em>) – index of row to scan in self.image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="picture_class.Picture.paint_contours">
+<code class="sig-name descname">paint_contours</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">grad</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">threshold</span><span class="o">=</span><span class="default_value">0.1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#picture_class.Picture.paint_contours" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method runs the find_edges and highlight_edges methods over the image</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grad</strong> (<em>bool</em>) – if True, it will call the find_edges_grad and highlight_edges_grad methods instead. Default value is False</p></li>
+<li><p><strong>threshold</strong> (<em>float</em>) – value over which a “color difference” detected by highlight_edges_grad is considered an edge</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="picture_class.Picture.vertical_scan">
+<code class="sig-name descname">vertical_scan</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">col_index</span></em><span class="sig-paren">)</span><a class="headerlink" href="#picture_class.Picture.vertical_scan" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>This function performs a linear scan over a given column. It calls the assess_difference method on each couple of pixel in the column,</dt><dd><p>and every time this returns False it changes the corresponding pixel value to 1 in self.edges.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>col_index</strong> (<em>int</em>) – index of column to scan in self.image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="picture_class.Picture.vertical_scan_grad">
+<code class="sig-name descname">vertical_scan_grad</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">col_index</span></em><span class="sig-paren">)</span><a class="headerlink" href="#picture_class.Picture.vertical_scan_grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function performs a linear scan over a given column. It calls the assess_gradient method on each couple of pixel in the column. For each pixel, it stores in self.edges the maximum value between the current value in self.edges and the “color difference” returned by assess_gradient.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>col_index</strong> (<em>int</em>) – index of column to scan in self.image</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 

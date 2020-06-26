@@ -1,7 +1,7 @@
 .. _picture_class:
 
 Picture
-=============
+=======
 
-.. autoclass:: picture_class
+.. automodule:: picture_class
    :members:
