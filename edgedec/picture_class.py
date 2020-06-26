@@ -1,6 +1,3 @@
-"""
-This module recognizes shapes in pictures
-"""
 import numpy as np
 import sys
 np.set_printoptions(threshold=sys.maxsize)
@@ -13,21 +10,12 @@ import matplotlib.pyplot as plt
 
 class Picture:
     """
-    Runs through ``orbitize`` methods in a standardized way.
+    Picture class.
 
-    Args:
-        input_data: Either a relative path to data file or astropy.table.Table object
-        mcmc_kwargs (dict, optional): ``num_temps``, ``num_walkers``, and ``num_threads``
-            kwargs for ``orbitize.sampler.MCMC``
-
-    Written: Gullo, Mikulas, Paolo 2020
-    """
-
-    def __init__(self, file_name, threshold = 0.1):
-        """class __init__ method 
-
-        Note:
-            Do not include the `self` parameter in the ``Args`` section.
+    This class offers a series of methods to load in a picture using matplotlib.image and then find the edges between pixels with different colors in it.
+    
+    Note:
+        Do not include the `self` parameter in the ``Args`` section.
 
         Args:
             file_name (str): The name of the image file to be loaded as a Picture object.
@@ -45,6 +33,13 @@ class Picture:
                 or the "color difference" value is stored in the corresponding pixel (if the highlight_edges_grad method is called).
             threshold (float): threshold to the "color difference" to determine the presence of an edge
             alpha     (bool): True if the loaded image has an alpha channel, False otherwise
+
+    
+    Written: Gullo, Mikulas, Paolo 2020
+    """
+    def __init__(self, file_name, threshold = 0.1):
+        """
+        class __init__ method 
         """
         self.file_name = file_name 
         self.image = img.imread(file_name) # numpy array of r-g-b values
@@ -139,14 +134,18 @@ class Picture:
 
     def highlight_edges(self): 
         """
+        highlight_edges
 
+        This method cycles over the image rows and columns in self.edges. Whenever it finds a nonzero value, 
+        it changes the corresponding pixel value in self.contours to [1,1,1] or [1,1,1,1] (depending on wether or not self.alpha is true). 
         """
         if self.alpha:
             for i in range(self.height): 
                 for j in range(self.width): 
                     if self.edges[i][j] == 0:
                         # print(self.contours[i][j])
-                        self.contours[i][j] = [0, 0, 0, 1]
+                        # self.contours[i][j] = [0, 0, 0, 1]
+                        pass
                     else:
                         # print(self.contours[i][j])
                         self.contours[i][j] = [1, 1, 1, 1]
@@ -155,7 +154,8 @@ class Picture:
                 for j in range(self.width): 
                     if self.edges[i][j] == 0:
                         # print(self.contours[i][j])
-                        self.contours[i][j] = [0, 0, 0]
+                        # self.contours[i][j] = [0, 0, 0]
+                        pass
                     else:
                         # print(self.contours[i][j])
                         self.contours[i][j] = [1, 1, 1]
@@ -210,14 +210,19 @@ class Picture:
             self.horizontal_scan_grad(i)
 
     def highlight_edges_grad(self): 
-        '''
-        '''       
+        """
+        highlight_edges_grad
+
+        This method cycles over the image rows and columns in self.edges. Whenever it finds a value above the threshold, 
+        it changes the corresponding pixel value in self.contours to [1,1,1] or [1,1,1,1] (depending on wether or not self.alpha is true). 
+        """       
         if self.alpha:
             for i in range(self.height): 
                 for j in range(self.width): 
                     if self.edges[i][j] < self.threshold:
                         # print(self.contours[i][j])
-                        self.contours[i][j] = [0, 0, 0, 1]  #drawing black
+                        # self.contours[i][j] = [0, 0, 0, 1]  #drawing black
+                        pass
                     else:
                         # print(self.contours[i][j])
                         # if self.contours[i][j]
@@ -227,31 +232,40 @@ class Picture:
                 for j in range(self.width): 
                     if self.edges[i][j] < self.threshold:
                         # print(self.contours[i][j])
-                        self.contours[i][j] = [0, 0, 0]
+                        # self.contours[i][j] = [0, 0, 0]
+                        pass
                     else:
                         # print(self.contours[i][j])
                         self.contours[i][j] = [1, 1, 1]
 
 
-    def check_num_edges(self):
-        '''
-        '''
-        tot_edges = 0
-        for row in self.edges:
-            tot_edges += sum(row)
-        return tot_edges
+    # def check_num_edges(self):
+    #     '''
+    #     '''
+    #     tot_edges = 0
+    #     for row in self.edges:
+    #         tot_edges += sum(row)
+    #     return tot_edges
 
 
     def paint_contours(self, grad = False):
+        """
+        paint_contours
+
+        This method runs the find_edges and highlight_edges methods over the image
+
+        Args:
+            grad (bool): if True, it will call the find_edges_grad and highlight_edges_grad methods instead. Default value is False 
+        """
         print('Working on the following image:')
         print(self)
         if grad: 
             self.find_edges_grad()
-            print(f'I found {self.check_num_edges()} edges.')
+            # print(f'I found {self.check_num_edges()} edges.')
             self.highlight_edges_grad()
         else:
             self.find_edges()   
-            print(f'I found {self.check_num_edges()} edges.')
+            # print(f'I found {self.check_num_edges()} edges.')
             self.highlight_edges()            
         
         plt.imshow(self.contours)
