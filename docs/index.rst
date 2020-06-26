@@ -10,8 +10,7 @@ Welcome to edgedec's documentation!
    :maxdepth: 2
    :caption: Contents:
    
-   picture
-
+   picture_class
 
 Indices and tables
 ==================
