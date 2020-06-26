@@ -108,7 +108,7 @@ class Picture:
                 self.edges[row_index][i] = 1
                 
     def vertical_scan(self, col_index):
-         """
+        """
         This function performs a linear scan over a given column. It calls the assess_difference method on each couple of pixel in the column,
             and every time this returns False it changes the corresponding pixel value to 1 in self.edges. 
         
@@ -144,8 +144,8 @@ class Picture:
                 for j in range(self.width): 
                     if self.edges[i][j] == 0:
                         # print(self.contours[i][j])
-                        # self.contours[i][j] = [0, 0, 0, 1]
-                        pass
+                        self.contours[i][j] = [0, 0, 0, 1]
+                        # pass
                     else:
                         # print(self.contours[i][j])
                         self.contours[i][j] = [1, 1, 1, 1]
@@ -154,8 +154,8 @@ class Picture:
                 for j in range(self.width): 
                     if self.edges[i][j] == 0:
                         # print(self.contours[i][j])
-                        # self.contours[i][j] = [0, 0, 0]
-                        pass
+                        self.contours[i][j] = [0, 0, 0]
+                        # pass
                     else:
                         # print(self.contours[i][j])
                         self.contours[i][j] = [1, 1, 1]
@@ -221,22 +221,24 @@ class Picture:
                 for j in range(self.width): 
                     if self.edges[i][j] < self.threshold:
                         # print(self.contours[i][j])
-                        # self.contours[i][j] = [0, 0, 0, 1]  #drawing black
-                        pass
+                        self.contours[i][j] = [0, 0, 0, 1]  #drawing black
+                        # pass
                     else:
                         # print(self.contours[i][j])
                         # if self.contours[i][j]
-                        self.contours[i][j] = [1, 1, 1, 1]   #drawing the edge 
+                        self.contours[i][j] = [1, 1, 1, 1]   #drawing the edge white 
+                        # self.contours[i][j] = [0, 1, 0, 1]   #drawing the edge green
         else:     
             for i in range(self.height): 
                 for j in range(self.width): 
                     if self.edges[i][j] < self.threshold:
                         # print(self.contours[i][j])
-                        # self.contours[i][j] = [0, 0, 0]
-                        pass
+                        self.contours[i][j] = [0, 0, 0]
+                        # pass
                     else:
                         # print(self.contours[i][j])
-                        self.contours[i][j] = [1, 1, 1]
+                        self.contours[i][j] = [1, 1, 1] #white
+                        # self.contours[i][j] = [0, 1, 0] #green
 
 
     # def check_num_edges(self):
