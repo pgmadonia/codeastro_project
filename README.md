@@ -1,6 +1,5 @@
-# edge_dec
-
-edgedec - a package to find edges between colors in a picture
+# edgedec
+## a package to find edges between colors in a picture
 
 This package uses matplotlib.image to load a picture into memory as a Picture object.
 
