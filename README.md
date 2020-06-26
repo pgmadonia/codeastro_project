@@ -7,6 +7,14 @@ The series of commands to transform a picture into contours:
 
 pip install edgedec
 
+*in order to get our test images, clone the repo and install manually instead, using the following commands*
+
+*git clone https://github.com/pgmadonia/codeastro_project*
+
+*cd codeastro_project*
+
+*pip install .*
+
 ipython
 
 import edgedec
