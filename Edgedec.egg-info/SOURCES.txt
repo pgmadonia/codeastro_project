@@ -1,3 +1,4 @@
+MANIFEST.in
 README.md
 setup.py
 Edgedec.egg-info/PKG-INFO
@@ -5,7 +6,13 @@ Edgedec.egg-info/SOURCES.txt
 Edgedec.egg-info/dependency_links.txt
 Edgedec.egg-info/top_level.txt
 edgedec/__init__.py
-edgedec/picture.py
+edgedec/picture_class.py
+edgedec/test0.png
+edgedec/test1.png
+edgedec/test2.png
+edgedec/test3.png
+edgedec/test4.png
+edgedec/test5.png
 edgedec.egg-info/PKG-INFO
 edgedec.egg-info/SOURCES.txt
 edgedec.egg-info/dependency_links.txt
