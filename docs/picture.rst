@@ -1,8 +1,9 @@
-.. module:: edgedec
+.. _picture:
 
 Picture
-=======
+===================
+.. module:: edgedec
 
-.. automodule: picture
+.. automodule:: edgedec.picture
    :members:
 
