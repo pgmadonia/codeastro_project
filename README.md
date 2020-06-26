@@ -23,6 +23,4 @@ image.paint_contours(grad = True) # to paint only strong edges
 
 image.paint_contours(grad = True, threshold = 0.1) # from 0.01 to 1
 
- [![Documentation Status](https://readthedocs.org/projects/docs/badge/?version=latest)](https://edgedec.readthedocs.io/en/latest/index.html)
-
-[![PyPI version](https://badge.fury.io/py/edgedec.svg)](https://badge.fury.io/py/edgedec)
+ [![Documentation Status](https://readthedocs.org/projects/docs/badge/?version=latest)](https://edgedec.readthedocs.io/en/latest/index.html) [![PyPI version](https://badge.fury.io/py/edgedec.svg)](https://badge.fury.io/py/edgedec)
